@@ -49,9 +49,9 @@ local function createNotif(titleText, bodyText, duration)
     corner.Parent = frame
 
     local stroke = Instance.new("UIStroke")
-    stroke.Color = Color3.fromRGB(35, 35, 45)
+    stroke.Color = Color3.fromRGB(35, 35, 35)
     stroke.Thickness = 1
-    stroke.Transparency = 1
+    stroke.Transparency = 0.7
     stroke.Parent = frame
 
     local title = Instance.new("TextLabel")
@@ -80,18 +80,18 @@ local function createNotif(titleText, bodyText, duration)
 
     local progressBar = Instance.new("Frame")
     progressBar.Size = UDim2.new(1, 0, 0, 2)
-    progressBar.Position = UDim2.new(0, 0, 1, -2)
-    progressBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    progressBar.Position = UDim2.new(0, 0, 1.2, -2)
+    progressBar.BackgroundColor3 = Color3.fromRGB(51, 51, 51)
     progressBar.BorderSizePixel = 0
-    progressBar.BackgroundTransparency = 1
+    progressBar.BackgroundTransparency = 0.65
     progressBar.Parent = frame
 
     local fadeInInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-    TweenService:Create(frame, fadeInInfo, {BackgroundTransparency = 0.1}):Play()
+    TweenService:Create(frame, fadeInInfo, {BackgroundTransparency = 0.2}):Play()
     TweenService:Create(stroke, fadeInInfo, {Transparency = 0}):Play()
     TweenService:Create(title, fadeInInfo, {TextTransparency = 0}):Play()
     TweenService:Create(body, fadeInInfo, {TextTransparency = 0}):Play()
-    TweenService:Create(progressBar, fadeInInfo, {BackgroundTransparency = 0.3}):Play()
+    TweenService:Create(progressBar, fadeInInfo, {BackgroundTransparency = 0.25}):Play()
 
     local progressTweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
     TweenService:Create(progressBar, progressTweenInfo, {Size = UDim2.new(0, 0, 0, 2)}):Play()
@@ -114,7 +114,7 @@ end
 
 getgenv().Config = {
     Enabled = true,
-    WeaponSlot = "Melee",
+    WeaponSlot = "Primary",
     
     EnableVoidhide = false,      
     AttackDuration = 0.2,         
