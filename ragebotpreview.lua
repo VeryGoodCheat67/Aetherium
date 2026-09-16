@@ -124,8 +124,6 @@ getgenv().Config = {
     Underground = false,        
 
     EnablePrediction = false,    
-    TargetFilter = "All",       
-    TargetMode = "Distance",    
     PredictionFactor = 0.035,   
     
     EnableNotifications = true,
@@ -247,12 +245,7 @@ local function getHvHTarget()
     local bestPlayer = nil
     local bestRoot = nil
     local bestHead = nil
-    
     local bestDist = math.huge
-    local lowestHealth = math.huge
-
-    local filterMode = getgenv().Config.TargetFilter or "All"
-    local targetMode = getgenv().Config.TargetMode or "Distance"
 
     for _, player in plrs:GetPlayers() do
         if not isEnemy(player) then continue end
@@ -263,31 +256,13 @@ local function getHvHTarget()
         local pHum = pChar:FindFirstChildWhichIsA("Humanoid")
         if not (pRoot and pHead and pHum and pHum.Health > 0) then continue end
 
-        local distFromOrigin = pRoot.Position.Magnitude
-        local isTargetInVoid = distFromOrigin >= 100000
-
-        if filterMode == "NonVoid" and isTargetInVoid then
-            continue
-        elseif filterMode == "VoidOnly" and not isTargetInVoid then
-            continue
-        end
-
         local dist = (myRoot.Position - pRoot.Position).Magnitude
 
-        if targetMode == "Health" then
-            if pHum.Health < lowestHealth then
-                lowestHealth = pHum.Health
-                bestPlayer = player
-                bestRoot = pRoot
-                bestHead = pHead
-            end
-        else
-            if dist < bestDist then
-                bestDist = dist
-                bestPlayer = player
-                bestRoot = pRoot
-                bestHead = pHead
-            end
+        if dist < bestDist then
+            bestDist = dist
+            bestPlayer = player
+            bestRoot = pRoot
+            bestHead = pHead
         end
     end
     return bestPlayer, bestRoot, bestHead
@@ -296,7 +271,7 @@ end
 local function hasKnifeViewModel(targetPlayer)
     if not targetPlayer then return false end
     local viewModels = ws:FindFirstChild("ViewModels")
-    if not viewModels then return false end
+    if not viewModels me false end
     local targetName = targetPlayer.Name
     for _, model in viewModels:GetChildren() do
         if model:IsA("Model") 
@@ -450,3 +425,5 @@ task.spawn(function()
         end)
     end
 end)
+
+print("gtest 123")
