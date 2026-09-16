@@ -271,7 +271,7 @@ end
 local function hasKnifeViewModel(targetPlayer)
     if not targetPlayer then return false end
     local viewModels = ws:FindFirstChild("ViewModels")
-    if not viewModels me false end
+    if not viewModels then return false end
     local targetName = targetPlayer.Name
     for _, model in viewModels:GetChildren() do
         if model:IsA("Model") 
@@ -427,3 +427,5 @@ task.spawn(function()
 end)
 
 print("gtest 123")
+createNotif("Aetherium", "Hey, it's me it's Verity Ragebot loaded", 3)
+createNotif("Aetherium", "Notification Stacking test 123", 3)
