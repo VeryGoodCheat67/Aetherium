@@ -173,7 +173,7 @@ end)
 task.spawn(function()
     while true do
         task.wait(0.01)
-        if not getgenv().Config.Enabled then continue end
+        if not getgenv().Config.Enabled or lplr:GetAttribute("TeamID") == nil then continue end
         local localFighter = FighterController.LocalFighter
         if localFighter then
             pcall(function()
@@ -222,7 +222,7 @@ local function listenToHumanoid(player, humanoid)
     local lastHealth = humanoid.Health
 
     activeListeners[player] = humanoid.HealthChanged:Connect(function(newHealth)
-        if getgenv().Config.EnableNotifications and getgenv().Config.Enabled then
+        if getgenv().Config.EnableNotifications and getgenv().Config.Enabled and lplr:GetAttribute("TeamID") ~= nil then
             if newHealth < lastHealth then
                 local damageDealt = math.floor((lastHealth - newHealth) + 0.5)
                 if damageDealt > 0 then
@@ -316,11 +316,11 @@ local currentDesyncCF = nil
 
 runS.RenderStepped:Connect(function()
     local mousePos = uis:GetMouseLocation()
-    statusLabel.Position = UDim2.new(0, mousePos.X, 0, mousePos.Y + 22)
+    statusLabel.Position = UDim2.new(0, mousePos.X, 0, mousePos.Y + 38)
 end)
 
 runS.Heartbeat:Connect(function()
-    if not getgenv().Config.Enabled then
+    if not getgenv().Config.Enabled or lplr:GetAttribute("TeamID") == nil then
         statusLabel.Text = "ragebot: off"
         return
     end
@@ -424,7 +424,7 @@ end)
 task.spawn(function()
     while true do
         task.wait()
-        if not getgenv().Config.Enabled then continue end
+        if not getgenv().Config.Enabled or lplr:GetAttribute("TeamID") == nil then continue end
 
         local targetPlayer, targetRoot, targetHead = getHvHTarget()
         if not targetPlayer or not targetHead or not targetRoot then continue end
