@@ -80,10 +80,10 @@ local function createNotif(titleText, bodyText, duration)
 
     local progressBar = Instance.new("Frame")
     progressBar.Size = UDim2.new(1, 0, 0, 2)
-    progressBar.Position = UDim2.new(0, 0, 1.2, -2)
-    progressBar.BackgroundColor3 = Color3.fromRGB(51, 51, 51)
+    progressBar.Position = UDim2.new(0, 0, 1, -2)
+    progressBar.BackgroundColor3 = Color3.fromRGB(180, 180, 190)
     progressBar.BorderSizePixel = 0
-    progressBar.BackgroundTransparency = 0.65
+    progressBar.BackgroundTransparency = 1
     progressBar.Parent = frame
 
     local fadeInInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
@@ -164,11 +164,20 @@ task.spawn(function()
     end
 end)
 
-local function isEnemy(player)
-    if player == lplr then return false end
+local function getLocalTeam()
     local duel = SpectateController.CurrentDuelSubject
     local localDueler = duel and duel:GetDueler(lplr)
     local localTeam = localDueler and localDueler:Get("TeamID") or nil
+    if localTeam ~= nil then
+        return localTeam
+    end
+    return lplr:GetAttribute("TeamID")
+end
+
+local function isEnemy(player)
+    if player == lplr then return false end
+    local localTeam = getLocalTeam()
+    local duel = SpectateController.CurrentDuelSubject
     if localTeam and duel and duel.Duelers then
         for _, dueler in duel.Duelers do
             if dueler.Player == player then
@@ -178,9 +187,8 @@ local function isEnemy(player)
         end
     end
     local pTeam = player:GetAttribute("TeamID")
-    local lTeam = lplr:GetAttribute("TeamID")
-    if pTeam and lTeam then
-        return pTeam ~= lTeam
+    if pTeam and localTeam then
+        return pTeam ~= localTeam
     end
     return true
 end
@@ -288,12 +296,15 @@ local isVoidSpamming = false
 local currentDesyncCF = nil
 
 runS.Heartbeat:Connect(function()
-    if lplr:GetAttribute("TeamID") == nil then return end
+    if not getgenv().Config.Enabled then return end
 
     local currentTime = tick()
     local voidhideEnabled = getgenv().Config.EnableVoidhide
+    local targetPlayer, targetRoot, targetHead = getHvHTarget()
 
-    if voidhideEnabled then
+    if not targetPlayer then
+        isVoidSpamming = true
+    elseif voidhideEnabled then
         if isVoidSpamming then
             if currentTime - stateStartTime >= (getgenv().Config.VoidDuration or 2) then
                 isVoidSpamming = false
@@ -309,10 +320,9 @@ runS.Heartbeat:Connect(function()
         isVoidSpamming = false
     end
 
-    local targetPlayer, targetRoot, targetHead = getHvHTarget()
     currentDesyncCF = nil
     
-    if voidhideEnabled and isVoidSpamming then
+    if isVoidSpamming then
         local signX = (math.random(0, 1) == 0) and -1 or 1
         local signY = (math.random(0, 1) == 0) and -1 or 1
         local signZ = (math.random(0, 1) == 0) and -1 or 1
@@ -337,11 +347,15 @@ runS.Heartbeat:Connect(function()
             local offsetMode = getgenv().Config.CustomOffsetMode or "Original"
             
             if offsetMode == "Above" then
-                desyncPos = (targetRoot.CFrame * CFrame.new(0, 6, 0)).Position
+                desyncPos = (targetRoot.CFrame * CFrame.new(0, 4, 0)).Position
             elseif offsetMode == "Below" then
-                desyncPos = (targetRoot.CFrame * CFrame.new(0, -6, 0)).Position
+                desyncPos = (targetRoot.CFrame * CFrame.new(0, -4, 0)).Position
+            elseif offsetMode == "Jitter" then
+                desyncPos = (targetRoot.CFrame * CFrame.new(math.random(-4,4), math.random(-4,4), math.random(-4,4))).Position
+            elseif offsetMode == "Jitter+" then
+                desyncPos = (targetRoot.CFrame * CFrame.new(math.random(-8,8), math.random(-8,8), math.random(-8,8))).Position
             elseif offsetMode == "Behind" then
-                desyncPos = (targetRoot.CFrame * CFrame.new(0, 1, 3)).Position
+                desyncPos = (targetRoot.CFrame * CFrame.new(0, 1, 0)).Position
             elseif offsetMode == "None" then
                 desyncPos = targetRoot.Position
             else
@@ -379,7 +393,6 @@ task.spawn(function()
     while true do
         task.wait()
         if not getgenv().Config.Enabled then continue end
-        if lplr:GetAttribute("TeamID") == nil then continue end
 
         local targetPlayer, targetRoot, targetHead = getHvHTarget()
         if not targetPlayer or not targetHead or not targetRoot then continue end
