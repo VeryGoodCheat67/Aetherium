@@ -16,6 +16,8 @@ local SpectateController = require(lplr.PlayerScripts.Controllers:WaitForChild("
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "Notifiactions"
 screenGui.ResetOnSpawn = false
+screenGui.DisplayOrder = 999999999
+screenGui.IgnoreGuiInset = true
 screenGui.Parent = playerGui
 
 local container = Instance.new("Frame")
@@ -32,6 +34,23 @@ listLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 listLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
 listLayout.Padding = UDim.new(0, 6)
 listLayout.Parent = container
+
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Name = "RagebotStatus"
+statusLabel.Size = UDim2.new(0, 400, 0, 20)
+statusLabel.AnchorPoint = Vector2.new(0.5, 0)
+statusLabel.BackgroundTransparency = 1
+statusLabel.Font = Enum.Font.SourceSansBold
+statusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+statusLabel.TextSize = 14
+statusLabel.TextXAlignment = Enum.TextXAlignment.Center
+statusLabel.Text = "ragebot: off"
+statusLabel.Parent = screenGui
+
+local statusStroke = Instance.new("UIStroke")
+statusStroke.Color = Color3.fromRGB(0, 0, 0)
+statusStroke.Thickness = 1
+statusStroke.Parent = statusLabel
 
 local function createNotif(titleText, bodyText, duration)
     duration = duration or 2
@@ -295,8 +314,16 @@ local stateStartTime = tick()
 local isVoidSpamming = false
 local currentDesyncCF = nil
 
+runS.RenderStepped:Connect(function()
+    local mousePos = uis:GetMouseLocation()
+    statusLabel.Position = UDim2.new(0, mousePos.X, 0, mousePos.Y + 22)
+end)
+
 runS.Heartbeat:Connect(function()
-    if not getgenv().Config.Enabled then return end
+    if not getgenv().Config.Enabled then
+        statusLabel.Text = "ragebot: off"
+        return
+    end
 
     local currentTime = tick()
     local voidhideEnabled = getgenv().Config.EnableVoidhide
@@ -338,6 +365,8 @@ runS.Heartbeat:Connect(function()
         else
             currentDesyncCF = CFrame.new(voidPos)
         end
+
+        statusLabel.Text = "ragebot: voidspamming..."
     elseif targetRoot and targetHead then
         local desyncPos
         
@@ -368,6 +397,9 @@ runS.Heartbeat:Connect(function()
         end
         
         currentDesyncCF = CFrame.lookAt(desyncPos, targetHead.Position)
+        statusLabel.Text = string.format("ragebot: attacking %s", targetPlayer.DisplayName or targetPlayer.Name)
+    else
+        statusLabel.Text = "ragebot: off"
     end
 
     if currentDesyncCF and lplr.Character then
