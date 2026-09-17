@@ -25,6 +25,7 @@
 
         body {
             margin: 0;
+            scrollbar-width: none;
             min-height: 100%;
             background:
                 radial-gradient(
@@ -175,7 +176,7 @@
             color: #555;
             font-size: 13px;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
             animation: sectionIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
         }
 
@@ -183,7 +184,7 @@
             width: min(850px, 95%);
             margin-top: 45px;
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(35px);
             animation: sectionIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
         }
 
@@ -208,7 +209,7 @@
 
         .code-box:hover {
             border-color: #292929;
-            transform: translateY(-2px);
+            transform: translateY(-1px);
             box-shadow:
                 0 30px 90px rgba(0, 0, 0, 0.65),
                 inset 0 1px 0 rgba(255, 255, 255, 0.035);
@@ -222,7 +223,7 @@
             white-space: nowrap;
             overflow-x: auto;
             font-family: "Cascadia Code", monospace;
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.6;
             color: #b5b5b5;
             scrollbar-width: none;
