@@ -426,6 +426,11 @@ task.spawn(function()
         task.wait()
         if not getgenv().Config.Enabled or lplr:GetAttribute("TeamID") == nil then continue end
 
+        local weaponSlot = getgenv().Config.WeaponSlot or "Primary"
+        if isVoidSpamming and weaponSlot ~= "Melee" then
+            continue
+        end
+
         local targetPlayer, targetRoot, targetHead = getHvHTarget()
         if not targetPlayer or not targetHead or not targetRoot then continue end
         if not lplr.Character or not lplr.Character:FindFirstChild("HumanoidRootPart") then continue end
