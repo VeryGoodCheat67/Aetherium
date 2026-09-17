@@ -6,8 +6,10 @@ A *very good* script
 </div>
 
 <div>
+  
   ## loader
 ```lua
 loadstring("https://raw.githubusercontent.com/VeryGoodCheat67/Aetherium/refs/heads/main/src/ragebot.lua")
 ```
+
 </div>
