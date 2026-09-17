@@ -5,9 +5,10 @@
 A *very good* script
 </div>
 
-<div>
+<div align="center">
   
-  ## loader
+  ## loader (ragebot preview)
+  *no ui*
 ```lua
 loadstring("https://raw.githubusercontent.com/VeryGoodCheat67/Aetherium/refs/heads/main/src/ragebot.lua")
 ```
