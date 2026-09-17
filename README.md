@@ -4,5 +4,11 @@
 
 # Aetherium
 A *very good* script
-
 </div>
+
+## loader
+
+ragebot:
+```lua
+loadstring("???")
+```
