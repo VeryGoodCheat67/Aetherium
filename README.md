@@ -17,4 +17,4 @@ We are a very good script
 By "we" I mean I beacuse I am the only guy
 working
 
-<img src="https://raw.githubusercontent.com/VeryGoodCheat67/Aetherium/refs/heads/main/misc/3daetherium.png" alt="Aetherium" width="200">
+<img src="https://raw.githubusercontent.com/VeryGoodCheat67/Aetherium/refs/heads/main/misc/3daetherium.gif" alt="Aetherium" width="200">
