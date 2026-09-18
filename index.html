@@ -18,6 +18,11 @@
             overflow-x: hidden;
         }
 
+        :root {
+            --accent: #9b8cff;
+            --accent-dim: #4a4470;
+        }
+
         body {
             min-height: 100%;
             scrollbar-width: none;
@@ -38,7 +43,7 @@
             pointer-events: none;
             z-index: 0;
             background:
-                radial-gradient(ellipse 90% 55% at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 70%),
+                radial-gradient(ellipse 90% 55% at 50% 0%, rgba(155,140,255,0.05) 0%, transparent 70%),
                 radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,255,255,0.012), transparent 65%);
             animation: ambientPulse 9s ease-in-out infinite;
         }
@@ -64,7 +69,7 @@
             width: 500px;
             height: 500px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.028) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(155,140,255,0.05) 0%, transparent 70%);
             pointer-events: none;
             filter: blur(30px);
         }
@@ -81,6 +86,20 @@
             pointer-events: none;
             user-select: none;
             filter: brightness(0.7) blur(0.4px);
+        }
+
+        .hero-gif2 {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: min(300px, 72vw);
+            height: min(300px, 72vw);
+            object-fit: contain;
+            transform: translate(-50%, -50%);
+            opacity: 0.18;
+            pointer-events: none;
+            user-select: none;
+            filter: brightness(0.7) blur(0.8px);
         }
 
         .hero-content {
@@ -109,7 +128,7 @@
 
         .title:hover {
             font-size: clamp(62px, 9.8vw, 105px);
-            letter-spacing: -4,5px;
+            letter-spacing: -4.5px;
         }
 
         .subtitle {
@@ -121,6 +140,127 @@
             opacity: 0;
             transform: translateY(16px);
             animation: riseIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+        }
+
+        .hero-buttons {
+            margin-top: 34px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .script-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 100px;
+            border: 1px solid #cacaca;
+            background:#fff;
+            color: #060608;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: riseIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+            transition:
+                background 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        .script-button:hover {
+            background: #878787;
+            border-color: #979797;
+            transform: translateY(-2px);
+        }
+
+        .discord-button {
+            margin-top: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px 10px 16px;
+            border-radius: 100px;
+            border: 1px solid #1c1c1c;
+            background: #060606;
+            color: #6d6d6d;
+            font-family: inherit;
+            font-size: 12px;
+            letter-spacing: 0.2px;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: riseIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
+            transition:
+                border-color 0.35s ease,
+                color 0.35s ease,
+                background 0.35s ease,
+                box-shadow 0.35s ease;
+        }
+
+        .discord-button:hover {
+            border-color: var(--accent-dim);
+            color: #d8d4ff;
+            background: #0a0a0d;
+            box-shadow: 0 0 0 1px rgba(155,140,255,0.08), 0 18px 40px rgba(30,20,60,0.35);
+        }
+
+        .discord-button svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+            color: var(--accent);
+            opacity: 0.85;
+            transition: opacity 0.35s ease;
+        }
+
+        .discord-button:hover svg {
+            opacity: 1;
+        }
+
+        .github-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-radius: 100px;
+            background: #060606;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: riseIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.75s forwards;
+            transition:
+                border-color 0.35s ease,
+                color 0.35s ease,
+                background 0.35s ease,
+                box-shadow 0.35s ease;
+        }
+
+        .github-button:hover {
+            border-color: var(--accent-dim);
+            color: #d8d4ff;
+            background: #0a0a0d;
+            box-shadow: 0 0 0 1px rgba(133, 133, 133, 0.08), 0 18px 40px rgba(133, 133, 133, 0.35);
+        }
+
+        .github-button svg {
+            width: 16px;
+            height: 16px;
+            color: #fff;
+            opacity: 0.85;
+            transition: opacity 0.35s ease;
+        }
+
+        .github-button:hover svg {
+            opacity: 1;
         }
 
         .scroll-button {
@@ -321,9 +461,9 @@
         }
 
         .copy-button:hover {
-            background: #141414;
-            color: #bbb;
-            border-color: #2c2c2c;
+            background: #0d0d10;
+            color: #d8d4ff;
+            border-color: var(--accent-dim);
         }
 
         .copy-button:active {
@@ -331,8 +471,8 @@
         }
 
         .copy-button.copied {
-            color: #ddd;
-            border-color: #353535;
+            color: var(--accent);
+            border-color: var(--accent-dim);
         }
 
         .copy-icon {
@@ -343,6 +483,118 @@
 
         .copy-button.copied .copy-icon {
             transform: scale(1.1);
+        }
+
+        .features-title {
+            margin-top: 70px;
+            font-size: clamp(22px, 3vw, 30px);
+            font-weight: 500;
+            letter-spacing: -1.4px;
+            line-height: 1.1;
+            background: linear-gradient(170deg, #fff 0%, #777 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(24px);
+            transition:
+                opacity 0.85s cubic-bezier(0.16,1,0.3,1),
+                transform 0.85s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        .features-subtitle {
+            margin-top: 10px;
+            color: #3c3c3c;
+            font-size: 11.5px;
+            line-height: 1.75;
+            max-width: 320px;
+            opacity: 0;
+            transform: translateY(18px);
+            transition:
+                opacity 0.85s cubic-bezier(0.16,1,0.3,1) 0.08s,
+                transform 0.85s cubic-bezier(0.16,1,0.3,1) 0.08s;
+        }
+
+        .features {
+            width: min(880px, 96%);
+            margin-top: 28px;
+            display: flex;
+            border: 1px solid #161616;
+            border-radius: 14px;
+            background: rgba(5,5,5,0.9);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(26px);
+            transition:
+                opacity 1s cubic-bezier(0.16,1,0.3,1) 0.16s,
+                transform 1s cubic-bezier(0.16,1,0.3,1) 0.16s;
+        }
+
+        .feature-box {
+            flex: 1;
+            padding: 26px 20px;
+            font-size: 13px;
+            color: #888;
+            letter-spacing: 0.1px;
+            line-height: 1.5;
+            text-align: left;
+            border-left: 1.5px solid #161616b9;
+            position: relative;
+            transition: color 0.4s ease, background 0.4s ease;
+        }
+
+        .feature-box:first-child {
+            border-left: none;
+        }
+
+        .feature-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #fff;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        .feature-box:hover {
+            color: #ddd;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .feature-box:hover::before {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .feature-label {
+            display: block;
+            color: #4a4a4a;
+            font-size: 10px;
+            letter-spacing: 0.3px;
+            margin-bottom: 8px;
+            transition: color 0.4s ease;
+        }
+
+        .feature-box:hover .feature-label {
+            color: #fff;
+        }
+
+        @media (max-width: 640px) {
+            .features {
+                flex-direction: column;
+            }
+            .feature-box {
+                border-left: none;
+                border-top: 1px solid #161616;
+            }
+            .feature-box:first-child {
+                border-top: none;
+            }
         }
 
         .reveal.in-view {
@@ -400,6 +652,25 @@
         <div class="hero-content">
             <div class="title">Aetherium</div>
             <p class="subtitle">the best script for rivals.</p>
+            <div class="hero-buttons">
+                <a class="script-button" href="#script">
+                    <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+                        <path d="M6 3L18 12L6 21V3Z" fill="currentColor"/>
+                    </svg>
+                    Script
+                </a>
+                <a class="discord-button" href="https://discord.gg/VWpKjThXjJ" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 127.14 96.36" fill="currentColor">
+                        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.93,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.93,96.12,53,91.08,65.69,84.69,65.69Z"/>
+                    </svg>
+                    Discord
+                </a>
+                <a class="github-button" href="https://github.com/VeryGoodCheat67/Aetherium" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -414,11 +685,17 @@
 
     <section class="preview" id="script">
 
+        <img
+            class="hero-gif2"
+            src="https://raw.githubusercontent.com/VeryGoodCheat67/Aetherium/main/misc/3daetherium.gif"
+            alt="yo"
+            aria-hidden="true"
+        >
+
         <h2 class="reveal">Ragebot</h2>
 
         <p class="description reveal">
-            paste the loadstring into your executor and experience
-            the <i>Aetherium</i> ragebot.
+            paste the script into your executor and experience the <i>Aetherium</i> ragebot.
         </p>
 
         <div class="code-container reveal">
@@ -430,6 +707,25 @@
                         <path d="M17 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
                     </svg>
                 </button>
+            </div>
+        </div>
+
+        <h3 class="features-title reveal">Trust</h3>
+        <p class="features-subtitle reveal">
+            a script is only as good as the team keeping it alive.
+        </p>
+        <div class="features reveal">
+            <div class="feature-box">
+                <span class="feature-label">Loadtimes</span>
+                Mogs UE and Kiciahook in loadtimes, and always will.
+            </div>
+            <div class="feature-box">
+                <span class="feature-label">Support</span>
+                Our dev team is happy to help at any time.
+            </div>
+            <div class="feature-box">
+                <span class="feature-label">Updates</span>
+                Updates quickly after every patch, no matter what.
             </div>
         </div>
 
